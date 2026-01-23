@@ -29,6 +29,12 @@ python3 -m venv .venv
 
 ### 2. Ativar Ambiente Virtual
 
+## 2.1 Se clonado do repositório do prof
+```bash
+source /workspaces/pabd2025_flask_aula/.venv/bin/activate
+```
+
+## 2.1 Se usado template do codespaces
 ```bash
 source /workspaces/codespaces-flask/.venv/bin/activate
 ```
