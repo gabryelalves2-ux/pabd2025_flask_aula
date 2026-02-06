@@ -54,4 +54,3 @@ def delete(pk):
     # Se for GET, apenas exibe o funcionário a ser removido
     funcionario = funcionario_dao.read('cpf', pk)
     return render_template('delete.html', funcionario=funcionario, datetime=datetime)
-
