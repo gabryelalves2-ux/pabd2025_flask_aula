@@ -1,89 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-    <title>3INF1M</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Detalhes do Funcionário</title>
+    <!-- ESTILIZAÇÃO -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='details.css') }}">
+    <!-- ÍCONES -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+</head>
 <body>
-    <div class="App">
-        <header class="bg-primary text-dark p-4">
-            <h1>My Flask App</h1>
+    <div class="app">
+        <header class="cabecalho">
+            <h1>Detalhes do Funcionário</h1>
         </header>
-        <div class="m-5">
-            <h2>Informações do Funcionário</h2>
-            <div class="row justify-content-center mt-4">
-                <div class="col-md-8">
-                    <div class="card shadow-lg mb-4">
-                        <div class="card-header bg-dark text-white">
-                            <h2><i class="fas fa-user"></i> {{ funcionario.pnome }} {{ funcionario.unome }}</h2>
-                        </div>
-                        <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-md-6">
-                                    <h5>Informações Pessoais</h5>
-                                    <p><strong>CPF:</strong> {{ funcionario.cpf|format_cpf }}</p>
-                                    <p><strong>Data de Nascimento:</strong> {{ datetime.strptime(funcionario.data_nasc,
-                                        '%Y-%m-%d').strftime('%d/%m/%Y') }}</p>
-                                    <p><strong>Sexo:</strong>
-                                        {% if funcionario.sexo|lower == 'm' %}
-                                        <i class="fas fa-mars" title="Masculino"></i>
-                                        {% elif funcionario.sexo|lower == 'f' %}
-                                        <i class="fas fa-venus" title="Feminino"></i>
-                                        {% elif funcionario.sexo|lower == 'o' %}
-                                        <i class="fas fa-genderless" title="Outro"></i>
-                                        {% else %}
-                                        {{ funcionario.sexo }}
-                                        {% endif %}
-                                    </p>
-                                    <p><strong>Endereço:</strong> {{ funcionario.endereco }}</p>
-                                </div>
-                                <div class="col-md-6">
-                                    <h5>Informações Profissionais</h5>
-                                    <p><strong>Salário:</strong> R$ {{ "%.2f"|format(funcionario.salario) }}</p>
-                                    <p><strong>Departamento:</strong>
-                                        {% if funcionario.numero_departamento %}
-                                        <span class="badge bg-dark">{{ funcionario.numero_departamento }}</span>
-                                        {% else %}
-                                        <span class="badge bg-secondary">Não atribuído</span>
-                                        {% endif %}
-                                    </p>
-                                    <p><strong>Supervisor:</strong>
-                                        {% if funcionario.cpf_supervisor %}
-                                        {{ funcionario.cpf_supervisor|format_cpf }}
-                                        {% else %}
-                                        <span class="text-muted">Nenhum</span>
-                                        {% endif %}
-                                    </p>
-                                </div>
+        <!-- TODO O CONTEUDO DO SITE -->
+        <main class="conteudo">
+            <h2 class="titulo-pagina">Informações do Funcionário</h2>
+            <!-- O CARTÃO -->
+            <div class="cartao">
+               <!-- CABEÇALHO -->
+                <div class="cabecalho-cartao">
+                    <h2><i class="fas fa-user"></i> {{ funcionario.pnome }} {{ funcionario.unome }}</h2>
+                </div>
+                <!-- CORPO DO CARTÃO COM AS INFORMAÇÕES -->
+                <div class="corpo-cartao">
+                    <div class="info-container">
+                        <!-- COLUNA 1: INFORMAÇÕES PESSOAIS -->
+                        <div class="info-coluna">
+                            <h5>Informações Pessoais</h5>
+                            
+                            <div class="info-item">
+                                <strong>CPF:</strong> {{ funcionario.cpf|format_cpf }}
                             </div>
-
-                            <hr>
-
-                            <p class="small text-muted">
-                                Criado em: {{ funcionario.created_at }}<br>
-                                Última atualização: {{ funcionario.updated_at }}
-                            </p>
+                            
+                            <div class="info-item">
+                                <strong>Data de Nascimento:</strong> 
+                                {{ datetime.strptime(funcionario.data_nasc, '%Y-%m-%d').strftime('%d/%m/%Y') }}
+                            </div>
+                            
+                            <div class="info-item">
+                                <strong>Sexo:</strong>
+                                {% if funcionario.sexo|lower == 'm' %}
+                                <i class="fas fa-mars" title="Masculino"></i> Masculino
+                                {% elif funcionario.sexo|lower == 'f' %}
+                                <i class="fas fa-venus" title="Feminino"></i> Feminino
+                                {% elif funcionario.sexo|lower == 'o' %}
+                                <i class="fas fa-genderless" title="Outro"></i> Outro
+                                {% else %}
+                                {{ funcionario.sexo }}
+                                {% endif %}
+                            </div>
+                            
+                            <div class="info-item">
+                                <strong>Endereço:</strong> {{ funcionario.endereco }}
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="{{ url_for('index') }}" class="btn btn-secondary">
-                                    <i class="fas fa-list"></i> Voltar à Lista
-                                </a>
-                                <a href="#" class="btn btn-warning">
-                                    <i class="fas fa-edit"></i> Editar
-                                </a>
-                                <a href="#" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i> Deletar
-                                </a>
+                        
+                        <!-- COLUNA 2: INFORMAÇÕES PROFISSIONAIS -->
+                        <div class="info-coluna">
+                            <h5>Informações Profissionais</h5>
+                            
+                            <div class="info-item">
+                                <strong>Salário:</strong> R$ {{ "%.2f"|format(funcionario.salario) }}
+                            </div>
+                            
+                            <div class="info-item">
+                                <strong>Departamento:</strong>
+                                {% if funcionario.numero_departamento %}
+                                <span class="badge">{{ funcionario.numero_departamento }}</span>
+                                {% else %}
+                                <span class="badge badge-secundario">Não atribuído</span>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="info-item">
+                                <strong>Supervisor:</strong>
+                                {% if funcionario.cpf_supervisor %}
+                                {{ funcionario.cpf_supervisor|format_cpf }}
+                                {% else %}
+                                <span class="texto-secundario">Nenhum</span>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
+                    
+                    <div class="separador"></div>
+                    
+                    <div class="info-adicional">
+                        <p><strong>Criado em:</strong> {{ funcionario.created_at }}</p>
+                        <p><strong>Última atualização:</strong> {{ funcionario.updated_at }}</p>
+                    </div>
+                </div>
+                
+                <div class="botoes">
+                    <a href="{{ url_for('index') }}" class="botao botao-voltar">
+                        <i class="fas fa-arrow-left"></i> Voltar à Lista
+                    </a>
+                    <a href="{{ url_for('update', pk=funcionario.cpf) }}" class="botao botao-editar">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                    <a href="{{ url_for('delete', pk=funcionario.cpf) }}" class="botao botao-deletar">
+                        <i class="fas fa-trash"></i> Deletar
+                    </a>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 </body>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 </html>
